@@ -19,7 +19,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/aws/aws-sdk-go/service/organizations"
 	"github.com/dustin/go-humanize"
-	internal "github.com/karl-cardenas-coding/go-lambda-cleanup/internal"
+	"github.com/conorevans/go-lambda-cleanup/internal"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
