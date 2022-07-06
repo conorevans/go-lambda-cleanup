@@ -1,4 +1,4 @@
-module github.com/karl-cardenas-coding/go-lambda-cleanup
+module github.com/conorevans/go-lambda-cleanup
 
 go 1.18
 
