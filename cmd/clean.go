@@ -3,8 +3,6 @@ package cmd
 import (
 	"context"
 	"crypto/tls"
-	"embed"
-	_ "embed"
 	"fmt"
 	"net/http"
 	"os"
@@ -37,8 +35,6 @@ var (
 	CustomeDeleteList []string
 	logLevel          aws.LogLevelType
 	svc               *lambda.Lambda
-	//go:embed aws-regions.txt
-	f embed.FS
 )
 
 func init() {
@@ -65,15 +61,7 @@ var cleanCmd = &cobra.Command{
 		awsEnvProfile = os.Getenv("AWS_PROFILE")
 		userAgent = fmt.Sprintf("go-lambda-cleanup-%s", VersionString)
 
-		if RegionFlag == "" {
-			if awsEnvRegion != "" {
-				region = validateRegion(f, awsEnvRegion)
-			} else {
-				log.Fatal("ERROR: Missing region flag and AWS_DEFAULT_REGION env variable. Please use -r and provide a valid AWS region.")
-			}
-		} else {
-			region = validateRegion(f, RegionFlag)
-		}
+		region = awsEnvRegion
 
 		ctx = context.Background()
 		// Initialize parameters
@@ -559,25 +547,4 @@ func checkError(err error) {
 			}
 		}
 	}
-}
-
-// Validates that the user passed in a valid AWS Region
-func validateRegion(f embed.FS, input string) string {
-
-	var output string
-
-	rawData, _ := f.ReadFile(regionFile)
-	regionsList := strings.Split(string(rawData), "	")
-
-	for _, region := range regionsList {
-		if strings.ToLower(input) == strings.TrimSpace(region) {
-			output = strings.TrimSpace(region)
-		}
-	}
-
-	if output == "" {
-		log.Fatal(input, " is an invalid AWS region. If this is an error please")
-	}
-
-	return output
 }
