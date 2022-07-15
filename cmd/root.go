@@ -27,30 +27,6 @@ var (
 	LambdaListFile string
 )
 
-const (
-	// IssueMSG is a default message to pass to the user
-	IssueMSG = " Please open up a Github issue to report this error! https://github.com/karl-cardenas-coding/go-clean-lambda"
-)
-
-var rootCmd = &cobra.Command{
-	Use:   "glc",
-	Short: "A CLI tool for cleaning up AWS Lambda versions",
-	Long:  `A CLI tool for cleaning up AWS Lambda versions`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := cmd.Help()
-		if err != nil {
-			log.WithFields(log.Fields{
-				"package":         "cmd",
-				"file":            "root.go",
-				"parent_function": "generateDocFlag",
-				"function":        "cmd.Help",
-				"error":           err,
-				"data":            nil,
-			}).Fatal("Error outputting help!", IssueMSG)
-		}
-	},
-}
-
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&RegionFlag, "region", "r", "", "Specify the desired AWS region to target.")
 	rootCmd.PersistentFlags().StringVarP(&ProfileFlag, "profile", "p", "", "Specify the AWS profile to leverage for authentication.")
