@@ -4,8 +4,6 @@ import (
 	"os"
 
 	log "github.com/sirupsen/logrus"
-
-	"github.com/spf13/cobra"
 )
 
 var (
@@ -34,7 +32,6 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "Set to true to enable debugging (bool)")
 	rootCmd.PersistentFlags().BoolVarP(&CredentialsFile, "enableSharedCredentials", "s", false, "Leverages the default ~/.aws/credentials file (bool)")
 	rootCmd.PersistentFlags().BoolVarP(&DryRun, "dryrun", "d", false, "Executes a dry run (bool)")
-	cleanCmd.Flags().Int8VarP(&Retain, "count", "c", 1, "The number of versions to retain from $LATEST-(n)")
 
 	// Establish logging default
 	log.SetFormatter(&log.TextFormatter{
@@ -57,7 +54,7 @@ func Execute() {
 				"function": "Execute",
 				"error":    err,
 				"data":     nil,
-			}).Fatal("Error executing the CLI!", IssueMSG)
+			}).Fatal("Error executing the CLI!")
 		} else {
 			log.Fatal(err.Error())
 		}
