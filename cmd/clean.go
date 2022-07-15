@@ -36,12 +36,7 @@ var (
 	svc               *lambda.Lambda
 )
 
-func init() {
-	rootCmd.AddCommand(cleanCmd)
-
-}
-
-var cleanCmd = &cobra.Command{
+var rootCmd = &cobra.Command{
 	Use:   "clean",
 	Short: "Removes all former versions of AWS lambdas except for the $LATEST version",
 	Long:  `Removes all former versions of AWS lambdas except for the $LATEST version. The user also has the ability specify n-? version to retain.`,
