@@ -45,18 +45,6 @@ func init() {
 }
 
 // Execute is the main execution function
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		if Verbose {
-			log.WithFields(log.Fields{
-				"package":  "cmd",
-				"file":     "root.go",
-				"function": "Execute",
-				"error":    err,
-				"data":     nil,
-			}).Fatal("Error executing the CLI!")
-		} else {
-			log.Fatal(err.Error())
-		}
-	}
+func Execute() error {
+	return rootCmd.Execute()
 }
